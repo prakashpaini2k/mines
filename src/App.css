@@ -1,38 +1,95 @@
-.App {
-  text-align: center;
+.App{
+  margin: auto;
+ 
+}
+.main{
+  padding: 1rem;
+  max-width: 360px;
+  margin: auto;
+
+}
+.header-wrapper{
+  box-shadow: #0003 0 4px 6px -1px,#0000001f 0 2px 4px -1px;
+
+}
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 360px;
+  margin: auto;
+  padding: .5rem 0;
+}
+.header > div{
+  padding: .5rem 1rem;
+  border-radius: 5px;
+}
+.balance{
+  background-color: rgb(16 34 47);
+}
+.board{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .5rem;
+  max-width: fit-content;
+  margin: 0 auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.cell{
+  width: 60px;
+  height: 60px;
+  background-color: #2f4553;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cell:hover{
+  margin-top: -1px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.controls{
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  max-width: 360px;
+  margin: auto;
+  gap: 1rem;
+  padding: 1rem;
+}
+.controls > * {
+  width: 100%;
+}
+.controls button {
+  background-color: rgb(0, 231, 1);
+  border-radius: 5px;
+  padding: .5rem 1rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.controls input {
+  background-color: rgb(16 34 47);
+  border-radius: 5px;
+  padding: .5rem 1rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600; 
   color: white;
+  outline: none;
+  appearance: none;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+label{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+.gem,.mine {
+  width: 40px;
+  margin: 10px;
+} 
