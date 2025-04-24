@@ -10,6 +10,7 @@ function App() {
   const [mineCount, setMineCount] = useState(3);
   const [gameState, setGameState] = useState('init');
   const [counter, setCounter] = useState(0)
+  const [multiplier, setMultiplier] = useState(0)
   const [cellChange, setCellChange] = useState(false)
   const genereateBoard = () => {
     let board = Array(25).fill('gem');
@@ -28,7 +29,7 @@ function App() {
   const gameOver = () => {
     setGameState('over');
     setCounter(0)
-    setScore(0)
+    
   }
   const handleClick = (index) => {
     if (board[index] === 'mine' && gameState === 'playing') {
@@ -36,13 +37,14 @@ function App() {
     }
     else if (gameState === 'playing') {
       setCounter(counter + 1)
-      let multiplier = 1 + (mineCount * counter / 10);
-      setScore(bet * multiplier);
+      let multiplier = (1 + (mineCount * counter) / (25 - mineCount)).toFixed(2);
+      setMultiplier(multiplier)
+      setScore((bet * multiplier).toFixed(2));
     }
   }
 
   const handleBet = () => {
-    if (balance < 1){
+    if (balance < 1) {
       alert('you lost , but dont worry you can bet again here is your 100')
       setBalance(100)
     }
@@ -54,6 +56,7 @@ function App() {
     }
     else {
       setBalance(balance - parseInt(bet));
+      setScore(0)
       setCellChange(!cellChange)
       setBoard(genereateBoard())
       setGameState('playing');
@@ -63,7 +66,7 @@ function App() {
     if (bet === 0) {
       setBalance(parseInt(balance + 0));
     }
-    else{
+    else {
       setBalance(parseInt(balance + score));
     }
     setCellChange(!cellChange)
@@ -75,18 +78,23 @@ function App() {
       <div className="header-wrapper">
         <div className="header">
           <div className="logo">Mines</div>
-          <div className="balance">balance : {balance}</div>
+          <div className="balance">balance : $ {balance}</div>
         </div>
       </div>
       <div className="main">
         <div className="board">
+        {gameState === 'over' && <div className="popup">
+          <div> {multiplier}x</div>
+          <div> $ {score}</div>
+        </div>}
           {board.map((state, index) => (
             <Cell key={index} gameState={gameState} cellChange={cellChange} cellState={state} index={index} handleClick={handleClick}></Cell>
           ))}
         </div>
+       
         <div className="controls">
           <label htmlFor="bet">
-            Bet
+            Bet $ 
             <input name="bet" type="number" value={bet} onChange={(e) => setBet(e.target.value)}></input>
           </label>
           {gameState === 'playing' ? <button onClick={handleCollect}>Collect</button> : <button onClick={handleBet}>Bet</button>}

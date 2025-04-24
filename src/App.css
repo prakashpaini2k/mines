@@ -33,6 +33,7 @@
   gap: .5rem;
   max-width: fit-content;
   margin: 0 auto;
+  position: relative;
 }
 
 .cell{
@@ -93,3 +94,19 @@ label{
   width: 40px;
   margin: 10px;
 } 
+.popup{
+  position: absolute;
+  height: 100px;
+  width: 150px;
+  background-color: #2f4553;
+  border-radius: 8px;
+  border: 2px solid rgb(0, 231, 1);
+  color: rgb(0, 231, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  
+  align-items: center;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
