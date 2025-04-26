@@ -6,8 +6,8 @@ const Cell = (props) => {
 const [isRevealed, setIsRevealed] = useState(false)
 const {cellState,cellChange,gameState,index,handleClick } = props
 const handleCellClick = () => {
-    if( gameState === 'playing') {
-        setIsRevealed(!isRevealed)
+    if( gameState === 'playing' && !isRevealed) {
+        setIsRevealed(true)
         handleClick(index)
     }
 }

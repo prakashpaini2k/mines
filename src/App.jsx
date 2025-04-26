@@ -7,9 +7,9 @@ function App() {
   const [bet, setBet] = useState(0);
   const [balance, setBalance] = useState(100);
   const [score, setScore] = useState(0);
+  const [counter, setCounter] = useState(0)
   const [mineCount, setMineCount] = useState(3);
   const [gameState, setGameState] = useState('init');
-  const [counter, setCounter] = useState(0)
   const [multiplier, setMultiplier] = useState(0)
   const [cellChange, setCellChange] = useState(false)
   const genereateBoard = () => {
@@ -26,20 +26,26 @@ function App() {
   };
 
   const [board, setBoard] = useState(genereateBoard());
-  const gameOver = () => {
-    setGameState('over');
+
+  const gameStart = () => {
+    setGameState('playing');
     setCounter(0)
-    
+    setMultiplier(0)
+    setScore(0)
   }
   const handleClick = (index) => {
     if (board[index] === 'mine' && gameState === 'playing') {
-      gameOver()
+      setGameState('over');
+      setCounter(0)
+      setMultiplier(0)
+      setScore(0)
     }
     else if (gameState === 'playing') {
-      setCounter(counter + 1)
-      let multiplier = (1 + (mineCount * counter) / (25 - mineCount)).toFixed(2);
+      setCounter(parseInt(counter) + 1)
+      let multiplier = (1+ (parseInt(counter*mineCount*counter) / parseInt(24 - counter))).toFixed(2);
       setMultiplier(multiplier)
-      setScore((bet * multiplier).toFixed(2));
+      let score = parseInt(bet * multiplier).toFixed(2);
+      setScore(score)
     }
   }
 
@@ -56,21 +62,22 @@ function App() {
     }
     else {
       setBalance(balance - parseInt(bet));
-      setScore(0)
+      setScore(bet)
       setCellChange(!cellChange)
       setBoard(genereateBoard())
-      setGameState('playing');
+      gameStart()
     }
   }
   const handleCollect = () => {
-    if (bet === 0) {
-      setBalance(parseInt(balance + 0));
+    if (counter === 0) {
+      alert('You have not clicked any cell yet')
+      return
     }
-    else {
-      setBalance(parseInt(balance + score));
+    else{
+      setBalance(parseInt(balance) + parseInt(score));
+      setCellChange(!cellChange)
+      setGameState('over');
     }
-    setCellChange(!cellChange)
-    gameOver()
   }
 
   return (
